@@ -2,12 +2,12 @@ const express = require("express")
 const path = require('path')
 const bodyParser = require('body-parser')
 require('./connection')
-const User = require('./models/User')
+const newEntry = require('./models/newEntry')
 const app = express();
 const port = 3000;
 const viewpath = path.join(__dirname,'')
 app.use(express.json())
-// app.use(express.static(path.join(__dirname, 'v')))
+
 
 app.set('view engine','ejs')
 app.set('views',viewpath)
@@ -17,9 +17,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    // res.redirect("/dashboard",{
-    //     liattribute:JSON.stringify("liDashboard")
-    // })
     res.redirect("/dashboard");
 });
 
@@ -79,18 +76,22 @@ app.get("/statistics",(req,res)=>{
 app.get("/dashboard",(req,res)=>{
     res.render("examples/dashboard")
 });
-app.post("/addname", (req, res) => {
-    myData = new User({
-        name :req.body.firstName,
-        salary : req.body.salary
-    }) 
-    myData.save().then(() => {
-        res.redirect("/")
-    }).catch((error) => {
-        console.log('Error!',error)
-        res.send("404")
-    })
-});
+app.post("/saveEntry",(req,res)=>{
+    console.log(req.body);
+    res.redirect("/user")
+})
+// app.post("/addname", (req, res) => {
+//     myData = new User({
+//         name :req.body.firstName,
+//         salary : req.body.salary
+//     }) 
+//     myData.save().then(() => {
+//         res.redirect("/")
+//     }).catch((error) => {
+//         console.log('Error!',error)
+//         res.send("404")
+//     })
+// });
 
 
 

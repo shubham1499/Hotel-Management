@@ -34,24 +34,13 @@
                 <h5 class="card-title">New Entry</h5>
               </div>
               <div class="card-body">
-                <form>
+                <form method="POST" action="/saveEntry">
+                  <fieldset>
                   <div class="row">
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>Sr.No.</label>
-                        <input type="text" class="form-control" disabled="" placeholder="Company" value="1111">
-                      </div>
-                    </div>
-                    <div style="display:none;" class="col-md-4 px-1">
-                      <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" class="form-control" placeholder="Full Name" value="michael23">
-                      </div>
-                    </div>
-                    <div style="display:none;"class="col-md-2 pl-1">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Age</label>
-                        <input type="number" class="form-control" placeholder="Age">
+                        <input name="txtSrNo" type="text" class="form-control" placeholder="Company" value="1111">
                       </div>
                     </div>
                   </div>
@@ -59,28 +48,28 @@
                     <div class="col-md-3 pr-1">
                       <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="First Name" value="Chet">
+                        <input name="txtFirstName" type="text" class="form-control" placeholder="First Name" value="Chet">
                       </div>
                     </div>
                     <div class="col-md-3 pl-1">
                       <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last Name" value="Faker">
+                        <input name="txtLastName" type="text" class="form-control" placeholder="Last Name" value="Faker">
                       </div>
                     </div>
-                    <div class="col-md-1 pl-1">
+                    <div class="col-md-2 pl-1">
                       <div class="form-group">
                         <label>Age</label>
-                        <input type="number" class="form-control" placeholder="Age" value="10">
+                        <input name="txtAge" type="number" class="form-control" placeholder="Age" value="10">
                       </div>
                     </div>
                     <div class="col-md-2 pl-1">
                       <div class="form-group">
                         <label>Sex</label>
                         <br>
-                        <label style="font-size:15px;" class="radio-inline"><input style="height:15px; width:15px" type="radio"  name="optradio">  Male</label>
+                        <label style="font-size:15px;" class="radio-inline"><input style="height:15px; width:15px" type="radio"  name="txtMale">  Male</label>
                         <br>
-                        <label style="font-size:15px;" class="radio-inline"><input style="height:15px; width:15px" type="radio" name="optradio">  Female</label>
+                        <label style="font-size:15px;" class="radio-inline"><input style="height:15px; width:15px" type="radio" name="txtFemale">  Female</label>
                       </div>
                     </div>
                   </div>
@@ -89,27 +78,33 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
+                        <input name="txtAddress" type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-3 pr-1">
                       <div class="form-group">
                         <label>City</label>
-                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                        <input name="txtCity" type="text" class="form-control" placeholder="City" value="Melbourne">
                       </div>
                     </div>
-                    <div class="col-md-4 px-1">
+                    <div class="col-md-3 pr-1">
+                      <div class="form-group">
+                        <label>State</label>
+                        <input name="txtState" type="text" class="form-control" placeholder="State" value="Melbourne">
+                      </div>
+                    </div>
+                    <div class="col-md-3 pr-1">
                       <div class="form-group">
                         <label>Country</label>
-                        <input type="text" class="form-control" placeholder="Country" value="Australia">
+                        <input name="txtCountry" type="text" class="form-control" placeholder="Country" value="Australia">
                       </div>
                     </div>
-                    <div class="col-md-4 pl-1">
+                    <div class="col-md-2 px-1">
                       <div class="form-group">
                         <label>Postal Code</label>
-                        <input type="number" class="form-control" placeholder="ZIP Code">
+                        <input name="txtPostalCode" type="number" class="form-control" placeholder="ZIP Code">
                       </div>
                     </div>
                   </div>
@@ -118,19 +113,19 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Profession At Present</label>
-                        <input type="text" class="form-control" placeholder="Profession">
+                        <input name="txtProfession" type="text" class="form-control" placeholder="Profession">
                       </div>
                     </div>
                     <div class="col-md-3 pr-1">
                       <div class="form-group">
                         <label>No of persons</label>
-                        <input type="number" class="form-control" placeholder="No of persons">
+                        <input name="txtPersons" type="number" class="form-control" placeholder="No of persons">
                       </div>
                     </div>
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Reason for Visit</label>
-                        <input type="text" class="form-control" placeholder="Reason for visit">
+                        <input name="txtReason" type="text" class="form-control" placeholder="Reason for visit">
                       </div>
                     </div>
                   </div>
@@ -140,13 +135,13 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Arrival Date</label>
-                        <input id="datepicker" type='text' class="form-control" placeholder="Select date" >
+                        <input name="txtArrivalDate" id="datepicker" type='text' class="form-control" placeholder="Select date" >
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
                         <label>Arrival Time</label>
-                        <input id="timepicker" type="text" class="form-control timepicker" value="14:00">
+                        <input name="txtArrivalTime" id="timepicker" type="text" class="form-control timepicker">
                       </div>
                     </div>
                   </div>
@@ -154,19 +149,21 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>From here visitor tends to visit</label>
-                        <input type="text" class="form-control" placeholder="Destination">
+                        <input name="txtDestination" type="text" class="form-control" placeholder="Destination">
                       </div>
                     </div>
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Approx Stay</label>
-                        <input type="number" class="form-control" placeholder="No. of days">
+                        <input name="txtStay" type="number" class="form-control" placeholder="No. of days">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-1 pr-1">
-                      <label>Rooms</label>
+                      <div class="form-group">
+                        <label>Rooms</label>
+                      </div>
                     </div>
                     <div class="form-group">
                       <div class="container">
@@ -179,9 +176,10 @@
                   <hr style="color:black;background-color:grey;">
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round">Submit</button>
+                      <button id="btnSubmit" type="submit" class="btn btn-primary btn-round">Submit</button>
                     </div>
                   </div>
+                </fieldset>
                 </form>
               </div>
             </div>
@@ -209,9 +207,7 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  
   <script src="https://rawgit.com/creativetimofficial/material-kit/master/assets/js/plugins/moment.min.js"></script>
   <script src="https://rawgit.com/creativetimofficial/material-kit/master/assets/js/plugins/bootstrap-datetimepicker.js"></script>
-    
 </body>
-
     <script type="text/javascript">
       $('#datepicker').datepicker({format:"dd/mm/yyyy"}); 
       $('.timepicker').datetimepicker({
@@ -221,9 +217,7 @@
                  down: "fa fa-chevron-down",  
              }
           });
-
           $(document).ready(function(){
-
               // Add new element
               $(".add").click(function(){
                     // Finding total number of elements added
@@ -238,7 +232,7 @@
                       // Adding new div container after last occurance of element class
                       $(".element:last").after("<div class='element' id='div_"+ nextindex +"'></div>");
                       // Adding element to <div>
-                      $("#div_" + nextindex).append("<input type='number' placeholder='Enter room number' id='txt_"+ nextindex +"'>&nbsp;<span id='remove_" + nextindex + "' class='remove'>X</span>");
+                      $("#div_" + nextindex).append("<input type='number' placeholder='Enter room number' id='txt_"+ nextindex +"'>&nbsp;<span type='button' id='remove_" + nextindex + "' class='remove'>X</span>");
                     }
               });
 
@@ -252,5 +246,4 @@
               });
           });
     </script>
-
 </html>
