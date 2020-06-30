@@ -1,6 +1,7 @@
 const express = require("express")
 const path = require('path')
 const bodyParser = require('body-parser')
+const moment = require('moment')
 require('./connection')
 const newEntry = require('./models/newEntry')
 const app = express();
@@ -78,8 +79,38 @@ app.get("/dashboard",(req,res)=>{
 });
 app.post("/saveEntry",(req,res)=>{
     console.log(req.body);
-    res.redirect("/user")
-})
+    const objs = req.body.txtArrivalDate.split("/");
+    const ad = objs[2] + "-" + objs[1] + "-" + objs[0];
+    const data = req.body;
+    myData = new newEntry({
+        srNo : data.txtSrNo,
+        firstName : data.txtFirstName,
+        lastName : data.txtLastName,
+        age : data.txtAge,
+        address : data.txtAddress,
+        city : data.txtCity,
+        state : data.txtState,
+        country : data.txtCountry,
+        postalCode : data.txtPostalCode,
+        profession : data.txtProfession,
+        noOfPersons : data.txtPersons,
+        reasonForVisit : data.txtReason,
+        arrivalDate : ad,
+        arrivalTime : data.txtArrivalTime,
+        departureDate : '',
+        departureTime :'',
+        destination : data.txtDestination,
+        approxStay : data.txtStay,
+        room : data.txtRoom,
+        flag : false,
+    })
+    myData.save().then(()=>{
+        res.redirect("/user")
+    }).catch((error)=>{
+        console.log('Error!',error)
+        res.send("404! Some Error occured")
+    })
+});
 // app.post("/addname", (req, res) => {
 //     myData = new User({
 //         name :req.body.firstName,

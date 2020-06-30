@@ -168,7 +168,7 @@
                     <div class="form-group">
                       <div class="container">
                         <div class='element' id='div_1'>
-                          <input type='number' placeholder='Enter room number' id='txt_1' >&nbsp;<span type="button" class='add'>Add room</span>
+                          <input name="txtRoom" type='number' placeholder='Enter room number' id='txt_1' >&nbsp;<span type="button" class='add'>Add room</span>
                         </div>
                       </div>
                     </div>
@@ -209,15 +209,14 @@
   <script src="https://rawgit.com/creativetimofficial/material-kit/master/assets/js/plugins/bootstrap-datetimepicker.js"></script>
 </body>
     <script type="text/javascript">
-      $('#datepicker').datepicker({format:"dd/mm/yyyy"}); 
-      $('.timepicker').datetimepicker({
-             format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
-             icons: {
-                 up: "fa fa-chevron-up",
-                 down: "fa fa-chevron-down",  
-             }
-          });
-          $(document).ready(function(){
+              $('#datepicker').datepicker({format:"dd/mm/yyyy"}); 
+              $('.timepicker').datetimepicker({
+                    format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
+                    icons: {
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",  
+                    }
+              });
               // Add new element
               $(".add").click(function(){
                     // Finding total number of elements added
@@ -232,10 +231,9 @@
                       // Adding new div container after last occurance of element class
                       $(".element:last").after("<div class='element' id='div_"+ nextindex +"'></div>");
                       // Adding element to <div>
-                      $("#div_" + nextindex).append("<input type='number' placeholder='Enter room number' id='txt_"+ nextindex +"'>&nbsp;<span type='button' id='remove_" + nextindex + "' class='remove'>X</span>");
+                      $("#div_" + nextindex).append("<input name='txtRoom' type='number' placeholder='Enter room number' id='txt_"+ nextindex +"'>&nbsp;<span type='button' id='remove_" + nextindex + "' class='remove'>X</span>");
                     }
               });
-
               // Remove element
               $('.container').on('click','.remove',function(){
                   var id = this.id;
@@ -244,6 +242,6 @@
                   // Remove <div> with id
                   $("#div_" + deleteindex).remove();
               });
-          });
+        
     </script>
 </html>

@@ -46,6 +46,12 @@ const NewEntry = mongoose.model("newEntry",{
     arrivalTime:{
         type: String
     },
+    departureDate:{
+        type: Date
+    },
+    departureTime:{
+        type: String
+    },
     destination:{
         type: String
     },
@@ -54,6 +60,9 @@ const NewEntry = mongoose.model("newEntry",{
     },
     room:{
         type:Array
+    },
+    flag:{
+        type:Number
     }
 })
 module.exports = NewEntry
