@@ -3,7 +3,8 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const moment = require('moment')
 require('./connection')
-const newEntry = require('./models/newEntry')
+const Entry = require('./models/Entry')
+const Customer = require('./models/Customer')
 const app = express();
 const port = 3000;
 const viewpath = path.join(__dirname,'')
@@ -22,8 +23,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
+    console.log("body",req.params)
+    console.log(req.body.srno);
     res.render("views/dashboard",{
         liattribute:JSON.stringify("liDashboard")
+    })
+});
+app.get("/customerInfo/:id", (req, res) => {
+    var query = Customer.findOne({Id:req.params.id});
+    query.exec(function (err,ans) {
+        console.log(ans);    
+    })
+    res.render("views/customerInfo",{
+        liattribute:JSON.stringify("liUser")
     })
 });
 app.get("/notifications",(req,res)=>{
@@ -32,20 +44,119 @@ app.get("/notifications",(req,res)=>{
     })
 });
 app.get("/user",(req,res)=>{
-    res.render("views/user",{
-        liattribute:JSON.stringify("liUser")
-    })
+    var query = Entry.find().sort({srNo:-1}).limit(1);
+    query.exec(function (err,ans) {
+        var newEntryId;
+        if(ans.length==0){
+            newEntryId = 2000;
+        }else{
+            newEntryId = ans[0].srNo+1;
+        }
+               
+        res.render("views/user",{
+            liattribute:JSON.stringify("liUser"),
+            EntryId:(newEntryId)
+        })  
+    });
 });
-app.get("/map",(req,res)=>{
-    res.render("views/map",{
-        liattribute:JSON.stringify("liMap")
-    })
-});
+
 app.get("/tables",(req,res)=>{
-    res.render("views/tables",{
-        liattribute:JSON.stringify("liTables")
+    var data1=[]
+    Customer.find({}, function(err, users) {
+        users.forEach(function(user) {
+            data1.push(user);
+        })
+        console.log(data1)
+        res.render("views/tables",{
+            liattribute:JSON.stringify("liTables"),
+            data:(data1)
+        })    
+    });
+});
+
+app.post("/saveEntry",(req,res)=>{
+    console.log(req.body);
+    const objs = req.body.txtArrivalDate.split("/");
+    const ad = objs[2] + "-" + objs[1] + "-" + objs[0];
+    const data = req.body;
+    var query = Customer.find().sort({custId:-1}).limit(1);
+    
+    query.exec(function(err,ans){
+        var newCustomerId;
+        if(ans.length==0){
+            newCustomerId=1000;
+        }else{
+            newCustomerId = (ans[0].custId+1);
+        }
+        
+        myEntryData = new Entry({
+            srNo : data.txtSrNo,
+            custId: newCustomerId,
+            firstName : data.txtFirstName,
+            lastName : data.txtLastName,
+            age : data.txtAge,
+            sex : data.txtSex,
+            mobileNo:data.txtMobileNo,
+            address : data.txtAddress,
+            city : data.txtCity,
+            state : data.txtState,
+            country : data.txtCountry,
+            postalCode : data.txtPostalCode,
+            profession : data.txtProfession,
+            noOfPersons : data.txtPersons,
+            reasonForVisit : data.txtReason,
+            arrivalDate : ad,
+            arrivalTime : data.txtArrivalTime,
+            departureDate : '',
+            departureTime :'',
+            destination : data.txtDestination,
+            approxStay : data.txtStay,
+            room : data.txtRoom,
+            amount : data.txtAmount,
+            flag : false,
+        })
+    
+        myCustomerData = new Customer({
+            custId : newCustomerId,
+            firstName : data.txtFirstName,
+            lastName : data.txtLastName,
+            age : data.txtAge,
+            sex : data.txtSex,
+            mobileNo:data.txtMobileNo,
+            address : data.txtAddress,
+            city : data.txtCity,
+            state : data.txtState,
+            country : data.txtCountry,
+            postalCode : data.txtPostalCode,
+            profession : data.txtProfession,
+            visit : data.txtSrNo
+        })
+    
+        myEntryData.save().then(()=>{
+            myCustomerData.save().then(()=>{
+                res.redirect("/user") 
+            }).catch((error)=>{
+                console.log('Error!',error)
+                res.send("404! Some Error occured")
+            })    
+        }).catch((error)=>{
+            console.log('Error!',error)
+            res.send("404! Some Error occured")
+        })
     })
 });
+// app.post("/addname", (req, res) => {
+//     myData = new User({
+//         name :req.body.firstName,
+//         salary : req.body.salary
+//     }) 
+//     myData.save().then(() => {
+//         res.redirect("/")
+//     }).catch((error) => {
+//         console.log('Error!',error)
+//         res.send("404")
+//     })
+// });
 app.get("/icons", (req, res) => {
     res.render("views/icons",{
         liattribute:JSON.stringify("liIcons")
@@ -56,7 +167,6 @@ app.get("/typography", (req, res) => {
         liattribute:JSON.stringify("liTypography")
     })
 });
-
 app.get("/statistics",(req,res)=>{
     var userSalary = [];
     var userName   = []; 
@@ -72,59 +182,12 @@ app.get("/statistics",(req,res)=>{
             values1 :JSON.stringify(userSalary)
         })
     }); 
-    
 });
-app.get("/dashboard",(req,res)=>{
-    res.render("examples/dashboard")
-});
-app.post("/saveEntry",(req,res)=>{
-    console.log(req.body);
-    const objs = req.body.txtArrivalDate.split("/");
-    const ad = objs[2] + "-" + objs[1] + "-" + objs[0];
-    const data = req.body;
-    myData = new newEntry({
-        srNo : data.txtSrNo,
-        firstName : data.txtFirstName,
-        lastName : data.txtLastName,
-        age : data.txtAge,
-        address : data.txtAddress,
-        city : data.txtCity,
-        state : data.txtState,
-        country : data.txtCountry,
-        postalCode : data.txtPostalCode,
-        profession : data.txtProfession,
-        noOfPersons : data.txtPersons,
-        reasonForVisit : data.txtReason,
-        arrivalDate : ad,
-        arrivalTime : data.txtArrivalTime,
-        departureDate : '',
-        departureTime :'',
-        destination : data.txtDestination,
-        approxStay : data.txtStay,
-        room : data.txtRoom,
-        flag : false,
-    })
-    myData.save().then(()=>{
-        res.redirect("/user")
-    }).catch((error)=>{
-        console.log('Error!',error)
-        res.send("404! Some Error occured")
+app.get("/map",(req,res)=>{
+    res.render("views/map",{
+        liattribute:JSON.stringify("liMap")
     })
 });
-// app.post("/addname", (req, res) => {
-//     myData = new User({
-//         name :req.body.firstName,
-//         salary : req.body.salary
-//     }) 
-//     myData.save().then(() => {
-//         res.redirect("/")
-//     }).catch((error) => {
-//         console.log('Error!',error)
-//         res.send("404")
-//     })
-// });
-
-
 
 
 app.listen(port, () => {
