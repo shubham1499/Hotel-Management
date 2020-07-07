@@ -45,7 +45,7 @@
                   <div class="row">
                     <div class="col-md-2 pr-1">
                       <div class="form-group">
-                        <label>Sr.No.</label>
+                        <label>Reg Id.</label>
                         <input name="txtSrNo" type="number" class="form-control" placeholder="No." value=<%=EntryId%>>
                       </div>
                     </div>
@@ -85,6 +85,12 @@
                         <label>Mobile</label>
                         <input name="txtMobileNo" type="number" class="form-control" placeholder="Enter Mobile Number">
                       </div>
+                    </div>
+                    <div class="col-md-3 pr-1">
+                        <div class="form-group">
+                          <label>Date of Birth (dd/mm/yyyy)</label>
+                          <input name="txtDOB" id="datepicker1" class="form-control" placeholder="Enter Date of Birth">
+                        </div>
                     </div>
                   </div>
                   <hr style="color:black;background-color:grey;">
@@ -144,12 +150,12 @@
                     </div>
                   </div>
                   <hr style="color:black;background-color:grey;">
-                  
+
                   <div class="row">
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
-                        <label>Arrival Date</label>
-                        <input name="txtArrivalDate" id="datepicker" type='text' class="form-control" placeholder="Select date" >
+                        <label>Arrival Date(dd/mm/yyyy)</label>
+                        <input name="txtArrivalDate" id="datepicker2" type='text' class="form-control" placeholder="Select date" >
                       </div>
                     </div>
                     <div class="col-md-2 pr-1">
@@ -229,7 +235,8 @@
   <script src="https://rawgit.com/creativetimofficial/material-kit/master/assets/js/plugins/bootstrap-datetimepicker.js"></script>
 </body>
     <script type="text/javascript">
-              $('#datepicker').datepicker({format:"dd/mm/yyyy"}); 
+              $('#datepicker1').datepicker({format:"dd/mm/yyyy"});
+              $('#datepicker2').datepicker({format:"dd/mm/yyyy"});
               $('.timepicker').datetimepicker({
                     format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
                     icons: {

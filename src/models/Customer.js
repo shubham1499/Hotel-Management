@@ -18,6 +18,9 @@ const Customer = mongoose.model('Customer',{
     mobileNo:{
         type:Number
     },
+    dob:{
+        type: Date
+    },
     address:{
         type: String
     },

@@ -23,11 +23,26 @@ app.get("/", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-    console.log("body",req.params)
-    console.log(req.body.srno);
-    res.render("views/dashboard",{
-        liattribute:JSON.stringify("liDashboard")
+    var query = Entry.find({flag:0});
+    query.exec(function(error,ans){ 
+        res.render("views/dashboard",{
+            liattribute:JSON.stringify("liDashboard"),
+            data:ans
+        })
     })
+});
+app.post("/addDeparture",(req,res)=>{
+    const data = req.body;
+    const objsdd = data.txtDepartureDate.split("/");
+    const dd = objsdd[2] + "-" + objsdd[1] + "-" + objsdd[0];
+    
+    Entry.findOneAndUpdate({srNo: req.body.txtSrNo},{$set: {departureDate: dd,departureTime:req.body.txtDepartureTime,flag:1}},function (err, doc) {
+        if (err) {
+            res.send("update document error");
+        } else {
+            res.redirect("/dashboard");        
+        }
+    });
 });
 app.get("/customerInfo/:id", (req, res) => {
     var query = Customer.findOne({Id:req.params.id});
@@ -76,9 +91,13 @@ app.get("/tables",(req,res)=>{
 
 app.post("/saveEntry",(req,res)=>{
     console.log(req.body);
-    const objs = req.body.txtArrivalDate.split("/");
-    const ad = objs[2] + "-" + objs[1] + "-" + objs[0];
     const data = req.body;
+    const objsad = data.txtArrivalDate.split("/");
+    const ad = objsad[2] + "-" + objsad[1] + "-" + objsad[0];
+    
+    
+    const objsdob = data.txtDOB.split("/");
+    const dob1 = objsdob[2] + "-" + objsdob[1] + "-" + objsdob[0];
     var query = Customer.find().sort({custId:-1}).limit(1);
     
     query.exec(function(err,ans){
@@ -97,6 +116,7 @@ app.post("/saveEntry",(req,res)=>{
             age : data.txtAge,
             sex : data.txtSex,
             mobileNo:data.txtMobileNo,
+            dob : dob1,
             address : data.txtAddress,
             city : data.txtCity,
             state : data.txtState,
@@ -124,6 +144,7 @@ app.post("/saveEntry",(req,res)=>{
             sex : data.txtSex,
             mobileNo:data.txtMobileNo,
             address : data.txtAddress,
+            dob : dob1,
             city : data.txtCity,
             state : data.txtState,
             country : data.txtCountry,

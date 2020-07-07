@@ -135,6 +135,98 @@
             </div>
           </div>
         </div>
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Current Customers</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive" style="max-height:600px;max-width:1000px;;">
+              <table id="curCustomer" class="table table-hover" >
+                <thead class=" text-primary">
+                  <th>
+                    Reg Id
+                  </th>
+                  <th>
+                    Cust ID.
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Arrival Date
+                  </th>
+                  <th>
+                    Arrival Time
+                  </th>
+                  <th>
+                    Rooms
+                  </th>
+                  <th>
+                    Amount Received
+                  </th>
+                  <th>
+                    Check-out
+                  </th>
+                </thead>
+                <tbody>
+                  <% data.forEach(function(row){ %>
+                    <tr>
+                      <td><%=row.srNo%></td>
+                      <td><%=row.custId %></td>
+                      <td><%=row.firstName %> <%=row.lastName %></td>
+                      <td><%=row.arrivalDate %></td>
+                      <td><%=row.arrivalTime %></td>
+                      <td><%=row.room%></td>
+                      <td><%=row.amount%></td>
+                      <td><button type="button" id= "<%=row.srNo%>" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Checkout</button></td></tr>
+                  <% }) %>
+                </tbody>
+                <form action="addDeparture" method="POST">
+                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <label>Reg Id.</label>
+                                <input id="SrNo" name="txtSrNo" type="number" class="form-control" readonly>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <label>Departure Date</label>
+                                <input name="txtDepartureDate" id="datepicker" type="text" class="form-control" placeholder="Date">
+                              </div>
+                            </div>
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <label>Departure Time</label>
+                                <input name="txtDepartureTime" id="timepicker" type="text" class="form-control timepicker" placeholder="Time">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" id="finalSubmit" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </table>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-12">
             <div class="card ">
@@ -201,26 +293,7 @@
           </div>
         </div>
       </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
-                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
-                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <%- include ("../views/partials/footer.ejs") %>
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -228,6 +301,7 @@
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../assets/js/plugins/bootstrap-datepicker.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
@@ -235,14 +309,37 @@
   <!--  Notifications Plugin    -->
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
-</body>
+  <!-- TimePicker And DatePicker -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  
+  <script src="https://rawgit.com/creativetimofficial/material-kit/master/assets/js/plugins/moment.min.js"></script>
+  <script src="https://rawgit.com/creativetimofficial/material-kit/master/assets/js/plugins/bootstrap-datetimepicker.js"></script>
 
+</body>
+<script type="text/Javascript">             
+  var flag=true;
+    $('#exampleModalCenter').on('show.bs.modal', function () { 
+              if(flag){
+                var btnid = $(document.activeElement).attr('id');
+                $('#SrNo').val(btnid);
+                flag = false;
+              }  
+    });
+    $('#exampleModalCenter').on('hidden.bs.modal', function () { 
+      flag=true;
+    });  
+    $('#datepicker').datepicker({format:"dd/mm/yyyy"});
+           $('.timepicker').datetimepicker({
+                   format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
+                   icons: {
+                       up: "fa fa-chevron-up",
+                       down: "fa fa-chevron-down",  
+                   }
+            });  
+   // $(document).ready(function() {
+   //   // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+   //   demo.initChartsPages();
+   // });
+   
+ </script>
 </html>

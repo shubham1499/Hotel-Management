@@ -25,6 +25,9 @@ const Entry = mongoose.model("Entry",{
     address:{
         type: String
     },
+    dob:{
+        type: Date
+    },
     city:{
         type: String
     },
@@ -65,7 +68,7 @@ const Entry = mongoose.model("Entry",{
         type: Number
     },
     room:{
-        type:Array
+        type:[Number]
     },
     amount:{
         type : Number
