@@ -7,42 +7,6 @@ const Entry = mongoose.model("Entry",{
     custId:{
         type: Number
     },
-    firstName:{
-        type: String
-    },
-    lastName:{
-        type: String
-    },
-    age:{
-        type: Number
-    },
-    sex:{
-        type: String
-    },
-    mobileNo:{
-        type:Number
-    },
-    address:{
-        type: String
-    },
-    dob:{
-        type: Date
-    },
-    city:{
-        type: String
-    },
-    state:{
-        type: String
-    },
-    country:{
-        type: String
-    },
-    postalCode:{
-        type: Number
-    },
-    profession:{
-        type: String
-    },
     noOfPersons:{
         type: Number
     },

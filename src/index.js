@@ -24,12 +24,18 @@ app.get("/", (req, res) => {
 
 app.get("/dashboard", (req, res) => {
     var query = Entry.find({flag:0});
-    query.exec(function(error,ans){ 
+    query.exec(function(error,ans){
+        // ans.forEach(function(ans1) {
+        //     Customer.find({custId:ans1.custId}).then(function(temp){
+        //         ans1.firstName = (temp[0].firstName);
+        //     }); 
+        // });
         res.render("views/dashboard",{
             liattribute:JSON.stringify("liDashboard"),
             data:ans
         })
-    })
+    });
+   
 });
 app.post("/addDeparture",(req,res)=>{
     const data = req.body;
@@ -111,18 +117,6 @@ app.post("/saveEntry",(req,res)=>{
         myEntryData = new Entry({
             srNo : data.txtSrNo,
             custId: newCustomerId,
-            firstName : data.txtFirstName,
-            lastName : data.txtLastName,
-            age : data.txtAge,
-            sex : data.txtSex,
-            mobileNo:data.txtMobileNo,
-            dob : dob1,
-            address : data.txtAddress,
-            city : data.txtCity,
-            state : data.txtState,
-            country : data.txtCountry,
-            postalCode : data.txtPostalCode,
-            profession : data.txtProfession,
             noOfPersons : data.txtPersons,
             reasonForVisit : data.txtReason,
             arrivalDate : ad,
