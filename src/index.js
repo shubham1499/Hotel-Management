@@ -6,7 +6,7 @@ require('./connection')
 const Entry = require('./models/Entry')
 const Customer = require('./models/Customer')
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 const viewpath = path.join(__dirname,'')
 app.use(express.json())
 
