@@ -18,6 +18,7 @@
     "js-datepicker": "^5.14.2",
     "moment": "^2.27.0",
     "mongodb": "^3.5.9",
+    "mongodb-shell": "^1.0.1",
     "mongoose": "^5.9.20",
     "nodemon": "^2.0.4"
   }
