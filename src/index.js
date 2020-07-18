@@ -2,7 +2,7 @@ const express = require("express")
 const path = require('path')
 const bodyParser = require('body-parser')
 const moment = require('moment')
-require('./connection')
+// require('./connection')
 const Entry = require('./models/Entry')
 const Customer = require('./models/Customer')
 const app = express();
