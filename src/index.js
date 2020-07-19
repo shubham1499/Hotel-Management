@@ -182,22 +182,22 @@ app.get("/typography", (req, res) => {
         liattribute:JSON.stringify("liTypography")
     })
 });
-app.get("/statistics",(req,res)=>{
-    var userSalary = [];
-    var userName   = []; 
-    User.find({}, function(err, users) { 
-        users.forEach(function(user) { 
-            userSalary.push(user.salary);
-            userName.push(user.name)
-        });
+// app.get("/statistics",(req,res)=>{
+//     var userSalary = [];
+//     var userName   = []; 
+//     User.find({}, function(err, users) { 
+//         users.forEach(function(user) { 
+//             userSalary.push(user.salary);
+//             userName.push(user.name)
+//         });
         
-        res.render("views/statistics",{
-            liattribute:JSON.stringify("liStatistics"),
-            labels1 : JSON.stringify(userName),
-            values1 :JSON.stringify(userSalary)
-        })
-    }); 
-});
+//         res.render("views/statistics",{
+//             liattribute:JSON.stringify("liStatistics"),
+//             labels1 : JSON.stringify(userName),
+//             values1 :JSON.stringify(userSalary)
+//         })
+//     }); 
+// });
 app.get("/map",(req,res)=>{
     res.render("views/map",{
         liattribute:JSON.stringify("liMap")
