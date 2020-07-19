@@ -1,9 +1,9 @@
   
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise;
-const MONGODB_URI = "mongodb+srv://siddharth-hotel:siddharth@cluster0.uye3i.gcp.mongodb.net/hotelmanagement?retryWrites=true&w=majority" || "mongodb://localhost:27017/hotelmanagement";
+const ATLAS_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/hotelmanagement";
 
-mongoose.connect(MONGODB_URI, {useNewUrlParser: true,useUnifiedTopology:true}).then(() => {
+mongoose.connect(ATLAS_URI, {useNewUrlParser: true,useUnifiedTopology:true}).then(() => {
     console.log("MongoDB Connected…");
 }).catch(err => console.log(err))
 
