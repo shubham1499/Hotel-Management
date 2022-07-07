@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "hbs": "^4.1.1",
     "js-datepicker": "^5.14.2",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "mongodb": "^3.5.9",
     "mongodb-shell": "^1.0.1",
     "mongoose": "^5.9.20",
